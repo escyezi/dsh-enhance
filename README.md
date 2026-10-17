@@ -22,7 +22,7 @@ DSH 桌面版插件：侧边栏余额卡片 + Plan-X 计划模式。
 Plan-X 是自带 plan 模式的替代交互：计划是一组普通 Markdown 文件，模型在正常对话里新增或修改，不弹审批，也不会在每次写完计划后强制在“同意 / 继续计划”里二选一。
 
 - 入口：输入框左侧的 **Plan-X** 开关，或命令 `/plan-x on` / `/plan-x off`。
-- 计划位置：当前工作区的 `.dsh/plans/*.plan.md`。
+- 计划位置：当前工作区的 `.dsh/plans/*.plan.md`；路径始终相对工作区根目录解析，不会写到用户主目录的 `~/.dsh`。
 - 模型通过 `plan_x_write` 创建或覆盖计划文档；这个工具只在 Plan-X 模式下可用，写文件不需要审批，也不会结束当前对话。
 - 计划写入或修改后，右侧栏会自动打开该 Markdown 文档；文档右上角有 **Build** 按钮。
 - 点击 Build：退出 Plan-X，并向当前会话发送一条普通的“按这份计划执行”的用户消息。不会新建会话，也不会切换模型。
@@ -66,7 +66,7 @@ src/client/balance/             余额：账号流、金额换算、卡片与样
 src/client/plan-x/              Plan-X：开关、Build 按钮、自动打开、样式
 locale/en.json / zh.json        插件页与插件列表里的显示名（meta.title / meta.description）
 cordis.patch.yml                本 bundle 贡献的行 + 默认配置
-tests/                          vitest 规格（75 个用例）
+tests/                          vitest 规格（76 个用例）
 build.sh                        构建（借用 DSH 源码仓库的客户端打包预设）
 icon.svg                        插件图标（原创 SVG）
 ```
@@ -79,7 +79,7 @@ icon.svg                        插件图标（原创 SVG）
 export DSH_REPO=/path/to/deepseek-harness
 cd /path/to/dsh-enhance
 pnpm install      # 仅首次
-pnpm check        # tsc --noEmit + vitest（75 个用例）
+pnpm check        # tsc --noEmit + vitest（76 个用例）
 pnpm build        # 产出 lib/index.js（Host）与 lib/client.js（浏览器）
 ```
 
@@ -131,7 +131,7 @@ Plan-X 的目录和后缀目前是固定约定（`.dsh/plans/*.plan.md`），没
 - 赠金用完后卡片不再显示赠金行，可用总额仍在悬停提示里。
 - 余额读取失败时显示「余额不可用」并支持点击重试，不会显示成 `¥0.00`。
 - 折叠侧边栏（窄栏）时余额卡片退化为货币符号，数字都在悬停提示里。
-- Plan-X 需要工作区目录；没有工作区的会话可以开关模式，但 `plan_x_write` 会拒绝写入。
+- Plan-X 需要工作区目录；没有工作区的会话可以开关模式，但 `plan_x_write` 会拒绝写入。计划路径始终相对工作区根目录，不是 `~/.dsh`。
 - Plan-X 目前靠系统提示约束模型“只改计划、不改源码”，并没有在工具层禁用 `write` / `edit`；计划工具本身只能写 `.dsh/plans/*.plan.md`。
 - Plan-X 与自带 plan 互斥；两者都开启时以自带 plan 的策略为准，建议先用 `/plan-x on` 或开关切到 Plan-X。
 - 如果未安装右侧文档预览（sidebar document preview），计划仍会写入，但没有自动打开和 Build 按钮。

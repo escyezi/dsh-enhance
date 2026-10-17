@@ -5,6 +5,7 @@ import { PLAN_X_TOOL, planWriteDefinition } from '../src/plan-x/tool.ts'
 interface WriteCall {
   target: unknown
   content: string
+  policy: unknown
 }
 
 interface Options {
@@ -13,6 +14,7 @@ interface Options {
   dirSymlink?: boolean
   fileSymlink?: boolean
   operation?: 'create' | 'update'
+  sandboxPolicy?: boolean
 }
 
 function fakeContext(options: Options = {}): { ctx: Context; writes: WriteCall[] } {
@@ -26,6 +28,9 @@ function fakeContext(options: Options = {}): { ctx: Context; writes: WriteCall[]
       },
     },
     workingDirectory: { ensure: async () => '/workspace' },
+    get: (key: string) => key === 'sandboxPolicy' && options.sandboxPolicy !== false
+      ? { resolve: () => ({ mode: 'workspace-write', workspaceRoot: '/workspace' }) }
+      : undefined,
     fs: {
       lstat: async (path: string) => {
         if (path === '.dsh/plans' && options.dirSymlink === true) return { type: 'symlink' }
@@ -35,8 +40,8 @@ function fakeContext(options: Options = {}): { ctx: Context; writes: WriteCall[]
       resolve: async (path: string) => ({ targetKey: path, displayPath: path }),
       contains: (parent: { targetKey: string }, child: { targetKey: string }) =>
         child.targetKey === parent.targetKey || child.targetKey.startsWith(`${parent.targetKey}/`),
-      writeText: async (target: unknown, content: string) => {
-        writes.push({ target, content })
+      writeText: async (target: unknown, content: string, _expected: unknown, _signal: unknown, policy: unknown) => {
+        writes.push({ target, content, policy })
         return { operation: options.operation ?? 'create', version: 'v1', before: null, after: content }
       },
     },
@@ -64,7 +69,15 @@ describe('plan_x_write tool', () => {
     expect(writes).toEqual([{
       target: { targetKey: '.dsh/plans/dark-mode.plan.md', displayPath: '.dsh/plans/dark-mode.plan.md' },
       content: MARKDOWN,
+      policy: { mode: 'workspace-write', workspaceRoot: '/workspace' },
     }])
+  })
+
+  it('passes no sandbox policy when the service is absent', async () => {
+    const { ctx, writes } = fakeContext({ sandboxPolicy: false })
+    await execute(ctx, { path: '.dsh/plans/dark-mode.plan.md', markdown: MARKDOWN })
+    expect(writes).toHaveLength(1)
+    expect(writes[0].policy).toBeUndefined()
   })
 
   it('reports an update when the file already existed', async () => {

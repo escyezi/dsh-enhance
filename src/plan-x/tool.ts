@@ -10,6 +10,7 @@ import type { Context } from '@deepseek-ai/cordis'
 import type { ToolDefinition, ToolResult, ToolRunContext } from '@deepseek-ai/dsh-tools'
 import type {} from '@deepseek-ai/dsh-fs'
 import type {} from '@deepseek-ai/dsh-plan-mode'
+import type {} from '@deepseek-ai/dsh-sandbox-policy'
 import type {} from '@deepseek-ai/dsh-session-projection'
 import type {} from '@deepseek-ai/dsh-working-directory'
 import { PLAN_DIRECTORY, PLAN_SUFFIX, normalizePlanPath } from './types.ts'
@@ -158,7 +159,12 @@ export function planWriteDefinition(ctx: Context): ToolDefinition {
         throw new Error(`${PLAN_X_TOOL}: refusing to write through a symlink`)
       }
 
-      const outcome = await ctx.fs.writeText(target, input.markdown, undefined, exec.signal)
+      // A sandboxing fs backend fences by workspace root. Resolving the
+      // session's own policy keeps .dsh/plans inside the Session workspace
+      // instead of the deployment fallback root; a non-confining backend
+      // ignores the value.
+      const sandboxPolicy = ctx.get('sandboxPolicy')?.resolve({ session: agent.session })
+      const outcome = await ctx.fs.writeText(target, input.markdown, undefined, exec.signal, sandboxPolicy)
       return {
         path,
         title,
