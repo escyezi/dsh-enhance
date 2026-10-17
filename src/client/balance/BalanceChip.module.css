@@ -1,0 +1,125 @@
+/* Sidebar-foot balance card: the topped-up and granted parts on their own
+   lines. Layer-1 is white in the light theme and a shade lighter than the
+   sidebar in the dark one, so the card reads as a panel on either; hover layers
+   the shared translucent tint over that fill. */
+
+.card {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 5px;
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0 8px 4px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: var(--dsw-radius-md);
+  corner-shape: round;
+  background-color: var(--dsw-alias-bg-layer-1);
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-image: linear-gradient(var(--dsw-alias-interactive-bg-hover), var(--dsw-alias-interactive-bg-hover));
+}
+
+.card:focus-visible {
+  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));
+  outline-offset: 1px;
+}
+
+.amountRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.totalRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label,
+.bonusLabel {
+  color: var(--dsw-alias-label-tertiary);
+  font-size: calc(var(--dsh-content-font-size-secondary, 13px) - 1px);
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.amount {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--dsw-alias-label-primary);
+  font-size: calc(var(--dsh-content-font-size-secondary, 13px) + 2px);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The granted balance is a footnote to the topped-up figure, not a peer. */
+.bonusRow {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bonusValue {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--dsw-alias-label-secondary);
+  font-size: calc(var(--dsh-content-font-size-secondary, 13px) - 1px);
+  font-variant-numeric: tabular-nums;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Collapsed rail: the column is 56px wide, so the card gives way to the
+   currency mark and the tooltip carries the three figures. */
+.railChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 36px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--dsw-radius-md);
+  corner-shape: round;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary);
+  font: inherit;
+  font-size: calc(var(--dsh-content-font-size-secondary, 13px) - 1px);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.railChip:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-secondary);
+}
+
+.railChip:focus-visible {
+  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));
+  outline-offset: 1px;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  align-self: center;
+  color: var(--dsw-alias-label-tertiary);
+}

@@ -1,0 +1,10 @@
+# The row this bundle contributes, with the default deployment configuration.
+#
+# Installed as the package's `cordis.patch.yml`. A profile's own
+# cordis.patch.yml is applied after every bundle layer, so a deployment overrides
+# any field here by entry id (§ balanceRefreshMs) without touching this file.
+- insert:
+    - id: dsh-enhance
+      name: "@escyezi/dsh-enhance"
+      config:
+        balanceRefreshMs: 60000
