@@ -15,6 +15,9 @@ function fakeContext(): {
     on: (event: string, listener: (table: IndexInjection[]) => void) => {
       if (event === 'webserver/index-inject') listeners.push(listener)
     },
+    // Plan-X mounts through optional injections; this fixture only exercises
+    // the always-on config publication.
+    inject: () => () => {},
   } as unknown as Context
   return {
     ctx,

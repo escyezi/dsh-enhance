@@ -4,6 +4,9 @@ node_modules/
 # Build output (pnpm build -> build.sh/tsdown)
 lib/
 
+# Workspace-local Plan-X documents
+.dsh/
+
 # Archives
 *.tgz
 

@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "DSH增强",
-    "description": "为 DSH 桌面版准备的一组增强：先在侧边栏左下角显示 DeepSeek 账号余额。"
+    "description": "为 DSH 桌面版准备的一组增强：侧边栏余额，以及把计划保存为 Markdown、从文档一键执行的 Plan-X 模式。"
   }
 }

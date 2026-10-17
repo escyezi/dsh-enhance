@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "DSH Enhance",
-    "description": "A growing set of enhancements for the DSH desktop app, starting with the DeepSeek account balance in the sidebar."
+    "description": "Enhancements for the DSH desktop app: the sidebar account balance, plus Plan-X, a planning mode that keeps plans as Markdown documents and starts implementation from the document."
   }
 }
