@@ -12,13 +12,12 @@
 .toggle {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   height: 26px;
-  padding: 0 8px;
-  border: 1px solid var(--dsw-alias-border-l1);
-  border-radius: var(--dsw-radius-md);
+  padding: 0;
+  border: 0;
   background: transparent;
-  color: var(--dsw-alias-label-secondary);
+  color: var(--dsw-alias-label-tertiary);
   font: inherit;
   font-size: 12px;
   line-height: 1;
@@ -27,20 +26,17 @@
 }
 
 .toggle:hover {
-  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-secondary);
+}
+
+.toggle[aria-checked='true'],
+.toggle[aria-checked='true']:hover {
   color: var(--dsw-alias-label-primary);
 }
 
-.toggle[data-active='true'] {
-  border-color: var(--dsw-alias-brand-primary);
-  background: var(--dsw-alias-bg-layer-2);
-  color: var(--dsw-alias-label-primary);
-}
-
-.toggle:focus-visible,
-.build:focus-visible {
-  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-brand-primary));
-  outline-offset: 1px;
+.toggle:focus-visible {
+  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));
+  outline-offset: 2px;
 }
 
 .toggle:disabled,
@@ -49,17 +45,50 @@
   cursor: default;
 }
 
-.glyph {
-  width: 14px;
-  height: 14px;
-  flex: none;
-  color: var(--dsw-alias-brand-primary);
-}
-
 .toggleLabel {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Host Switch geometry: 36x20 track, 2px inset, 16px thumb. */
+.track {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 20px;
+  padding: 2px;
+  border-radius: 999px;
+  corner-shape: round;
+  background: var(--dsw-alias-border-l3);
+  transition: background-color 120ms ease;
+}
+
+.thumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  corner-shape: round;
+  background: var(--dsw-alias-switch-thumb, var(--dsw-alias-label-primary-foreground));
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+.toggle[aria-checked='true'] .track {
+  background: var(--dsw-alias-brand-primary);
+}
+
+.toggle[aria-checked='true'] .thumb {
+  transform: translateX(16px);
+  background: var(--dsw-alias-label-primary-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .thumb {
+    transition: none;
+  }
 }
 
 .error,
@@ -100,6 +129,11 @@
 .build:hover {
   border-color: var(--dsw-alias-brand-primary);
   background-image: linear-gradient(var(--dsw-alias-interactive-bg-hover), var(--dsw-alias-interactive-bg-hover));
+}
+
+.build:focus-visible {
+  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-brand-primary));
+  outline-offset: 1px;
 }
 
 .buildGlyph {

@@ -35,26 +35,39 @@ describe('PlanXToggle', () => {
   it('reflects the projected mode and switches it off', async () => {
     const setActive = vi.fn(async () => null)
     render(<PlanXToggle {...toggleProps({ active: true, document: null }, setActive)} />)
-    const button = screen.getByRole('button', { name: '关闭 Plan-X 模式' })
-    expect(button.getAttribute('aria-pressed')).toBe('true')
+    const toggle = screen.getByRole('switch', { name: '关闭 Plan-X 模式' })
+    expect(toggle.getAttribute('aria-checked')).toBe('true')
+    expect(toggle.getAttribute('aria-pressed')).toBeNull()
     expect(screen.getByText('Plan-X')).toBeDefined()
-    fireEvent.click(button)
+    fireEvent.click(toggle)
     await waitFor(() => { expect(setActive).toHaveBeenCalledWith(false) })
   })
 
   it('switches an inactive mode on', async () => {
     const setActive = vi.fn(async () => null)
     render(<PlanXToggle {...toggleProps({ active: false, document: null }, setActive)} />)
-    fireEvent.click(screen.getByRole('button', { name: '开启 Plan-X 模式' }))
+    const toggle = screen.getByRole('switch', { name: '开启 Plan-X 模式' })
+    expect(toggle.getAttribute('aria-checked')).toBe('false')
+    fireEvent.click(toggle)
     await waitFor(() => { expect(setActive).toHaveBeenCalledWith(true) })
   })
 
-  it('shows a compact failure status', async () => {
+  it('renders a native switch button with a track and thumb', () => {
+    render(<PlanXToggle {...toggleProps({ active: false, document: null })} />)
+    const toggle = screen.getByRole('switch', { name: '开启 Plan-X 模式' })
+    expect(toggle.tagName).toBe('BUTTON')
+    expect(toggle.getAttribute('type')).toBe('button')
+    expect(toggle.getAttribute('aria-pressed')).toBeNull()
+    expect(toggle.querySelector('[data-part="track"]')).not.toBeNull()
+    expect(toggle.querySelector('[data-part="thumb"]')).not.toBeNull()
+  })
+
+  it('shows the real failure status', async () => {
     const setActive = vi.fn(async () => 'switch failed')
     render(<PlanXToggle {...toggleProps({ active: false, document: null }, setActive)} />)
-    fireEvent.click(screen.getByRole('button', { name: '开启 Plan-X 模式' }))
+    fireEvent.click(screen.getByRole('switch', { name: '开启 Plan-X 模式' }))
     await waitFor(() => { expect(screen.getByRole('status').getAttribute('title')).toBe('switch failed') })
-    expect(screen.getByRole('status').textContent).toBe('Plan-X 模式切换失败')
+    expect(screen.getByRole('status').textContent).toBe('Plan-X 模式切换失败: switch failed')
   })
 })
 
