@@ -1,47 +1,47 @@
 import { describe, expect, it } from 'vitest'
-import { parseEnhanceConfig } from '../src/config.ts'
-import { ENHANCE_CONFIG_GLOBAL, readClientConfig } from '../src/client-config.ts'
+import { parseBalanceConfig } from '../packages/balance/src/config.ts'
+import { BALANCE_CONFIG_GLOBAL, readBalanceClientConfig } from '../packages/balance/src/client-config.ts'
 
 const VALID = { balanceRefreshMs: 60_000 }
 
-describe('parseEnhanceConfig', () => {
+describe('parseBalanceConfig', () => {
   it('accepts a complete configuration', () => {
-    expect(parseEnhanceConfig(VALID)).toEqual(VALID)
+    expect(parseBalanceConfig(VALID)).toEqual(VALID)
   })
 
   it('rejects a missing refresh interval and names the field', () => {
-    expect(() => parseEnhanceConfig({})).toThrow(/dsh-enhance: invalid plugin config \(balanceRefreshMs:/u)
+    expect(() => parseBalanceConfig({})).toThrow(/dsh-enhance-balance: invalid plugin config \(balanceRefreshMs:/u)
   })
 
   it('rejects a negative or fractional interval', () => {
-    expect(() => parseEnhanceConfig({ balanceRefreshMs: -1 })).toThrow(/balanceRefreshMs/u)
-    expect(() => parseEnhanceConfig({ balanceRefreshMs: 1.5 })).toThrow(/balanceRefreshMs/u)
+    expect(() => parseBalanceConfig({ balanceRefreshMs: -1 })).toThrow(/balanceRefreshMs/u)
+    expect(() => parseBalanceConfig({ balanceRefreshMs: 1.5 })).toThrow(/balanceRefreshMs/u)
   })
 
   it('rejects an unknown extra key', () => {
-    expect(() => parseEnhanceConfig({ ...VALID, extra: 1 })).toThrow(/\(root\):/u)
+    expect(() => parseBalanceConfig({ ...VALID, extra: 1 })).toThrow(/\(root\):/u)
   })
 
   it('rejects retired pricing keys', () => {
-    expect(() => parseEnhanceConfig({ ...VALID, currency: 'CNY' })).toThrow(/\(root\):/u)
-    expect(() => parseEnhanceConfig({ ...VALID, pricingUrl: 'https://example.test' })).toThrow(/\(root\):/u)
-    expect(() => parseEnhanceConfig({ ...VALID, rates: [] })).toThrow(/\(root\):/u)
+    expect(() => parseBalanceConfig({ ...VALID, currency: 'CNY' })).toThrow(/\(root\):/u)
+    expect(() => parseBalanceConfig({ ...VALID, pricingUrl: 'https://example.test' })).toThrow(/\(root\):/u)
+    expect(() => parseBalanceConfig({ ...VALID, rates: [] })).toThrow(/\(root\):/u)
   })
 })
 
-describe('client configuration', () => {
+describe('balance client configuration', () => {
   it('publishes under one global name', () => {
-    expect(ENHANCE_CONFIG_GLOBAL).toBe('__DSH_ENHANCE__')
+    expect(BALANCE_CONFIG_GLOBAL).toBe('__DSH_ENHANCE_BALANCE__')
   })
 
   it('reads a published configuration', () => {
-    expect(readClientConfig({ balanceRefreshMs: 5 })).toEqual({ balanceRefreshMs: 5 })
+    expect(readBalanceClientConfig({ balanceRefreshMs: 5 })).toEqual({ balanceRefreshMs: 5 })
   })
 
   it('degrades to no timer', () => {
-    expect(readClientConfig(undefined)).toEqual({ balanceRefreshMs: 0 })
-    expect(readClientConfig(null)).toEqual({ balanceRefreshMs: 0 })
-    expect(readClientConfig({ balanceRefreshMs: -1 })).toEqual({ balanceRefreshMs: 0 })
-    expect(readClientConfig({ balanceRefreshMs: 1.5 })).toEqual({ balanceRefreshMs: 0 })
+    expect(readBalanceClientConfig(undefined)).toEqual({ balanceRefreshMs: 0 })
+    expect(readBalanceClientConfig(null)).toEqual({ balanceRefreshMs: 0 })
+    expect(readBalanceClientConfig({ balanceRefreshMs: -1 })).toEqual({ balanceRefreshMs: 0 })
+    expect(readBalanceClientConfig({ balanceRefreshMs: 1.5 })).toEqual({ balanceRefreshMs: 0 })
   })
 })

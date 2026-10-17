@@ -12,8 +12,8 @@ import type { ReactNode } from 'react'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 // Type-only: pulls the `conversation.input.left` SlotMap declaration.
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { PlanXProjection } from '../../plan-x/types.ts'
-import { NS } from '../locales.ts'
+import type { PlanXProjection } from '../types.ts'
+import { NS } from './locales.ts'
 import css from './PlanX.module.css'
 
 /** Operations the toggle's registrant injects. */

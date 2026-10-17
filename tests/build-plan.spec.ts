@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { buildPlan, type BuildCommandResult, type BuildPlanDeps, type BuildPromptResult } from '../src/client/plan-x/build-plan.ts'
+import { buildPlan, type BuildCommandResult, type BuildPlanDeps, type BuildPromptResult } from '../packages/plan-x/src/client/build-plan.ts'
 
 const ID = 'session-1' as SessionId
 const PATH = '.dsh/plans/dark.plan.md'

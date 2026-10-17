@@ -10,7 +10,7 @@ import { useEffect, useRef } from 'react'
 import type { InjectFace, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 // Type-only: pulls the `conversation.input.overlay` SlotMap declaration.
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { PlanXProjection } from '../../plan-x/types.ts'
+import type { PlanXProjection } from '../types.ts'
 
 /** Operations the auto-open registration injects. */
 export interface PlanXAutoOpenInjected {

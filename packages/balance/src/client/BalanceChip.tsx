@@ -14,7 +14,7 @@ import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@dee
 import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
 import type { BalanceSnapshot } from './balance-source.ts'
 import { currencySymbol, formatMicro } from './money.ts'
-import { NS } from '../locales.ts'
+import { NS } from './locales.ts'
 import css from './BalanceChip.module.css'
 
 /** What the chip's registrant injects. */

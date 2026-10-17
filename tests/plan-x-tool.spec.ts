@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Context } from '@deepseek-ai/cordis'
-import { PLAN_X_TOOL, planWriteDefinition } from '../src/plan-x/tool.ts'
+import { PLAN_X_TOOL, planWriteDefinition } from '../packages/plan-x/src/tool.ts'
 
 interface WriteCall {
   target: unknown

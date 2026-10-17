@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { AccountDetails, AccountView } from '@deepseek-ai/dsh-deepseek-account/types'
-import { createBalanceSource } from '../src/client/balance/balance-source.ts'
+import { createBalanceSource } from '../packages/balance/src/client/balance-source.ts'
 
 function accountView(status: 'credential-stored' | 'signed-out'): AccountView {
   return { status, links: { usageUrl: 'https://example.test/usage', topUpUrl: 'https://example.test/top_up' }, attempt: null }

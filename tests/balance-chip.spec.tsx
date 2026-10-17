@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { BalanceChip, type BalanceChipProps } from '../src/client/balance/BalanceChip.tsx'
-import type { BalanceSnapshot } from '../src/client/balance/balance-source.ts'
-import { zh } from '../src/client/locales.ts'
+import { BalanceChip, type BalanceChipProps } from '../packages/balance/src/client/BalanceChip.tsx'
+import type { BalanceSnapshot } from '../packages/balance/src/client/balance-source.ts'
+import { zh } from '../packages/balance/src/client/locales.ts'
 
 afterEach(cleanup)
 

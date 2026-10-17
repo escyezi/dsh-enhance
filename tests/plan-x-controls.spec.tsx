@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { PlanXToggle, type PlanXToggleProps } from '../src/client/plan-x/PlanXToggle.tsx'
-import { PlanBuildButton, type PlanBuildButtonProps } from '../src/client/plan-x/PlanBuildButton.tsx'
-import { PlanXAutoOpen, type PlanXAutoOpenProps } from '../src/client/plan-x/PlanXAutoOpen.tsx'
-import type { PlanXProjection } from '../src/plan-x/types.ts'
-import { zh } from '../src/client/locales.ts'
+import { PlanXToggle, type PlanXToggleProps } from '../packages/plan-x/src/client/PlanXToggle.tsx'
+import { PlanBuildButton, type PlanBuildButtonProps } from '../packages/plan-x/src/client/PlanBuildButton.tsx'
+import { PlanXAutoOpen, type PlanXAutoOpenProps } from '../packages/plan-x/src/client/PlanXAutoOpen.tsx'
+import type { PlanXProjection } from '../packages/plan-x/src/types.ts'
+import { zh } from '../packages/plan-x/src/client/locales.ts'
 
 afterEach(cleanup)
 

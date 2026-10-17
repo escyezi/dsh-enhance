@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Plan-X">
+  <defs>
+    <linearGradient id="plan-x-bg" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#c026d3"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#plan-x-bg)"/>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
+  <path d="M21 12h16l8 8v30a4 4 0 0 1-4 4H21a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M37 12v8h8" fill="#e9d5ff"/>
+  <path d="M25 36l5 5 10-11" fill="none" stroke="#7c3aed" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -10,8 +10,8 @@ import type { ReactNode } from 'react'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 // Type-only: pulls the document-actions SlotMap declaration.
 import type {} from '@deepseek-ai/dsh-client-ui-sidebar-documentpreview/client'
-import { planRelativePath } from '../../plan-x/types.ts'
-import { NS } from '../locales.ts'
+import { planRelativePath } from '../types.ts'
+import { NS } from './locales.ts'
 import css from './PlanX.module.css'
 
 /** Operations the Build button's registrant injects. */

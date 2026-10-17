@@ -1,14 +1,14 @@
 /**
- * The display values the Host republishes for the browser half, and the reader
- * that validates them. This module stays free of runtime dependencies so the
- * client bundle carries no validator library.
+ * The display values the balance Host republishes for the browser half, and the
+ * reader that validates them. This module stays free of runtime dependencies so
+ * the client bundle carries no validator library.
  *
  * @module
  */
-import type { EnhanceClientConfig } from './types.ts'
+import type { BalanceClientConfig } from './types.ts'
 
-/** Global the Host publishes for the browser half. */
-export const ENHANCE_CONFIG_GLOBAL = '__DSH_ENHANCE__'
+/** Global the balance Host publishes for the browser half. */
+export const BALANCE_CONFIG_GLOBAL = '__DSH_ENHANCE_BALANCE__'
 
 /**
  * Read the browser half's configuration, degrading to "no timer" when the Host
@@ -16,7 +16,7 @@ export const ENHANCE_CONFIG_GLOBAL = '__DSH_ENHANCE__'
  * @param value - the global's raw value.
  * @returns the validated client configuration.
  */
-export function readClientConfig(value: unknown): EnhanceClientConfig {
+export function readBalanceClientConfig(value: unknown): BalanceClientConfig {
   if (typeof value !== 'object' || value === null) return { balanceRefreshMs: 0 }
   const record = value as Record<string, unknown>
   const interval = record['balanceRefreshMs']

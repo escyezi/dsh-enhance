@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { Context } from '@deepseek-ai/cordis'
 import type { CommandDefinition } from '@deepseek-ai/dsh-commands'
-import { PLAN_X_COMMAND, registerPlanXCommand } from '../src/plan-x/command.ts'
+import { PLAN_X_COMMAND, registerPlanXCommand } from '../packages/plan-x/src/command.ts'
 
 interface Fake {
   definition: CommandDefinition

@@ -3,6 +3,7 @@
 # in tests.
 packages:
   - .
+  - packages/*
 
 nodeLinker: hoisted
 autoInstallPeers: false

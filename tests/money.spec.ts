@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { currencySymbol, formatMicro, walletMicro } from '../src/client/balance/money.ts'
+import { currencySymbol, formatMicro, walletMicro } from '../packages/balance/src/client/money.ts'
 
 describe('currencySymbol', () => {
   it('names each supported currency', () => {

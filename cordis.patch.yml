@@ -1,10 +1,14 @@
-# The row this bundle contributes, with the default deployment configuration.
+# The rows this bundle contributes. Each row is an independent package with
+# its own Host and browser half, so the Plugins page gives each one a switch.
 #
-# Installed as the package's `cordis.patch.yml`. A profile's own
-# cordis.patch.yml is applied after every bundle layer, so a deployment overrides
-# any field here by entry id (§ balanceRefreshMs) without touching this file.
+# A profile's own cordis.patch.yml is applied after every bundle layer, so a
+# deployment overrides a row by id without touching this file. The balance row
+# keeps the original `dsh-enhance` id, so existing `balanceRefreshMs` overrides
+# continue to address it.
 - insert:
     - id: dsh-enhance
-      name: "@escyezi/dsh-enhance"
+      name: "@escyezi/dsh-enhance-balance"
       config:
         balanceRefreshMs: 60000
+    - id: dsh-enhance-plan-x
+      name: "@escyezi/dsh-enhance-plan-x"

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { PLAN_DIRECTORY, PLAN_SUFFIX, isPlanPath, normalizePlanPath, planRelativePath } from '../src/plan-x/types.ts'
+import { PLAN_DIRECTORY, PLAN_SUFFIX, isPlanPath, normalizePlanPath, planRelativePath } from '../packages/plan-x/src/types.ts'
 
 describe('Plan-X path rules', () => {
   it('normalizes a workspace-relative plan path', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Context } from '@deepseek-ai/cordis'
-import { PLAN_X_POLICY_SECTION, registerPlanXPolicy } from '../src/plan-x/policy.ts'
+import { PLAN_X_POLICY_SECTION, registerPlanXPolicy } from '../packages/plan-x/src/policy.ts'
 
 interface Section {
   name: string
@@ -43,6 +43,10 @@ describe('Plan-X policy section', () => {
     expect(text).toContain('plan_x_write')
     expect(text).toContain('Build button')
     expect(text).toContain('Do not ask for approval')
+    expect(text).toContain('ask_user_question')
+    expect(text).toContain('unclear or ambiguous')
+    expect(text).toContain('before finalizing')
+    expect(text).toContain('Clarifying questions are not approval requests')
   })
 
   it('renders nothing outside Plan-X mode', () => {

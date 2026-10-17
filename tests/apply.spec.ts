@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Context } from '@deepseek-ai/cordis'
-import { apply, name } from '../src/index.ts'
+import { apply, name } from '../packages/balance/src/index.ts'
 
 const VALID = { balanceRefreshMs: 60_000 }
 
@@ -15,9 +15,6 @@ function fakeContext(): {
     on: (event: string, listener: (table: IndexInjection[]) => void) => {
       if (event === 'webserver/index-inject') listeners.push(listener)
     },
-    // Plan-X mounts through optional injections; this fixture only exercises
-    // the always-on config publication.
-    inject: () => () => {},
   } as unknown as Context
   return {
     ctx,
@@ -29,9 +26,9 @@ function fakeContext(): {
   }
 }
 
-describe('Host apply', () => {
+describe('balance Host apply', () => {
   it('identifies itself', () => {
-    expect(name).toBe('dsh-enhance')
+    expect(name).toBe('dsh-enhance-balance')
   })
 
   it('publishes the browser configuration', () => {
@@ -39,14 +36,14 @@ describe('Host apply', () => {
     apply(fake.ctx, VALID)
     expect(fake.emitIndexInject()).toEqual([{
       kind: 'global',
-      name: '__DSH_ENHANCE__',
+      name: '__DSH_ENHANCE_BALANCE__',
       value: { balanceRefreshMs: VALID.balanceRefreshMs },
     }])
   })
 
   it('refuses an invalid configuration at load', () => {
     const fake = fakeContext()
-    expect(() => { apply(fake.ctx, {}) }).toThrow(/dsh-enhance: invalid plugin config/u)
+    expect(() => { apply(fake.ctx, {}) }).toThrow(/dsh-enhance-balance: invalid plugin config/u)
     expect(fake.emitIndexInject()).toEqual([])
   })
 })

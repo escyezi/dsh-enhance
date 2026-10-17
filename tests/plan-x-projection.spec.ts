@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { planXProjectionDefinition } from '../src/plan-x/projection.ts'
-import type { PlanXUnitState } from '../src/plan-x/types.ts'
+import { planXProjectionDefinition } from '../packages/plan-x/src/projection.ts'
+import type { PlanXUnitState } from '../packages/plan-x/src/types.ts'
 
 type Apply = (state: PlanXUnitState, event: unknown) => PlanXUnitState
 const apply = planXProjectionDefinition.apply as unknown as Apply

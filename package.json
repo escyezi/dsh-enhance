@@ -4,28 +4,22 @@
   "private": true,
   "type": "module",
   "description": "Sidebar account balance and Plan-X planning mode for the DSH desktop app.",
-  "main": "lib/index.js",
   "exports": {
-    ".": "./lib/index.js",
-    "./client": "./lib/client.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg",
     "./package.json": "./package.json"
   },
   "dsh": {
-    "client": {
-      "platform": "web"
-    },
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
-  "peerDependencies": {
-    "@deepseek-ai/cordis": "~4.0.5"
+  "dependencies": {
+    "@escyezi/dsh-enhance-balance": "workspace:*",
+    "@escyezi/dsh-enhance-plan-x": "workspace:*"
   },
   "files": [
-    "lib/**",
     "cordis.patch.yml",
     "locale/*.json",
     "icon.svg"

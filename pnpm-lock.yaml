@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@escyezi/dsh-enhance-balance':
+        specifier: workspace:*
+        version: link:packages/balance
+      '@escyezi/dsh-enhance-plan-x':
+        specifier: workspace:*
+        version: link:packages/plan-x
     devDependencies:
       '@deepseek-ai/cordis':
         specifier: ~4.0.5
@@ -113,6 +120,18 @@ importers:
       vitest:
         specifier: ^4.1.8
         version: 4.1.12(@types/node@22.20.5)(jsdom@29.1.1)
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
+
+  packages/balance:
+    dependencies:
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
+
+  packages/plan-x:
+    dependencies:
       zod:
         specifier: 4.4.3
         version: 4.4.3
