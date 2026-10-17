@@ -135,4 +135,4 @@ Plan-X 的目录和后缀目前是固定约定（`.dsh/plans/*.plan.md`），没
 - Plan-X 目前靠系统提示约束模型“只改计划、不改源码”，并没有在工具层禁用 `write` / `edit`；计划工具本身只能写 `.dsh/plans/*.plan.md`。
 - Plan-X 与自带 plan 互斥；两者都开启时以自带 plan 的策略为准，建议先用 `/plan-x on` 或开关切到 Plan-X。
 - 如果未安装右侧文档预览（sidebar document preview），计划仍会写入，但没有自动打开和 Build 按钮。
-- 本仓库把 `.dsh/` 加入 `.gitignore`，避免把本机的 Plan-X 计划文档当作插件源码提交；其他工作区是否提交计划由各自仓库决定。
+- 本仓库把 `.dsh/plans/` 加入 `.gitignore`，避免把本机的 Plan-X 计划文档当作插件源码提交；其他工作区是否提交计划由各自仓库决定。

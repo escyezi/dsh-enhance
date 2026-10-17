@@ -5,7 +5,7 @@ node_modules/
 lib/
 
 # Workspace-local Plan-X documents
-.dsh/
+.dsh/plans/
 
 # Archives
 *.tgz
