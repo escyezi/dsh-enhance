@@ -66,7 +66,7 @@ src/client/balance/             余额：账号流、金额换算、卡片与样
 src/client/plan-x/              Plan-X：开关、Build 按钮、自动打开、样式
 locale/en.json / zh.json        插件页与插件列表里的显示名（meta.title / meta.description）
 cordis.patch.yml                本 bundle 贡献的行 + 默认配置
-tests/                          vitest 规格（76 个用例）
+tests/                          vitest 规格（81 个用例）
 build.sh                        构建（借用 DSH 源码仓库的客户端打包预设）
 icon.svg                        插件图标（原创 SVG）
 ```
@@ -79,7 +79,7 @@ icon.svg                        插件图标（原创 SVG）
 export DSH_REPO=/path/to/deepseek-harness
 cd /path/to/dsh-enhance
 pnpm install      # 仅首次
-pnpm check        # tsc --noEmit + vitest（76 个用例）
+pnpm check        # tsc --noEmit + vitest（81 个用例）
 pnpm build        # 产出 lib/index.js（Host）与 lib/client.js（浏览器）
 ```
 

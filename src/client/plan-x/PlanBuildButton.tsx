@@ -85,7 +85,11 @@ export function PlanBuildButton({ absolutePath, build, t }: PlanBuildButtonProps
         <BuildGlyph className={css.buildGlyph} />
         <span>{label}</span>
       </button>
-      {error !== null && <span className={css.buildError} role="status" title={error}>{t('planX.buildFailed')}</span>}
+      {error !== null && (
+        <span className={css.buildError} role="status" title={error}>
+          {t('planX.buildFailed')}: {error}
+        </span>
+      )}
     </span>
   )
 }

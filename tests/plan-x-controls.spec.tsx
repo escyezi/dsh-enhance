@@ -76,7 +76,7 @@ describe('PlanBuildButton', () => {
     render(<PlanBuildButton {...buildProps('/repo/project/.dsh/plans/dark-mode.plan.md', build) as PlanBuildButtonProps} />)
     fireEvent.click(screen.getByRole('button', { name: 'Build' }))
     await waitFor(() => { expect(screen.getByRole('status').getAttribute('title')).toBe('prompt rejected') })
-    expect(screen.getByRole('status').textContent).toBe('执行失败')
+    expect(screen.getByRole('status').textContent).toBe('执行失败: prompt rejected')
     expect((build as Mock).mock.calls).toHaveLength(1)
   })
 })

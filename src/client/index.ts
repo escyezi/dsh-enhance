@@ -11,9 +11,8 @@
 import type { Context } from '@deepseek-ai/cordis'
 // Type-only: declares `ctx.remote`, the services the Client receives from the Host.
 import type {} from '@deepseek-ai/dsh-api-remotes/client'
-// Type-only: declares `ctx.sessions` and the Agent-scope conversation face.
-import type {} from '@deepseek-ai/dsh-api-session-controller/client'
 import type {} from '@deepseek-ai/dsh-api-session-controller/remote'
+import type { SessionRequestId } from '@deepseek-ai/dsh-api-session-controller/types'
 // Type-only: declares `ctx.conversation` and the composer/chat slot declarations.
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
@@ -35,6 +34,7 @@ import { BalanceChip, type BalanceChipInjected } from './balance/BalanceChip.tsx
 import { PlanXToggle, type PlanXToggleInjected } from './plan-x/PlanXToggle.tsx'
 import { PlanBuildButton, type PlanBuildInjected } from './plan-x/PlanBuildButton.tsx'
 import { PlanXAutoOpen, type PlanXAutoOpenInjected } from './plan-x/PlanXAutoOpen.tsx'
+import { buildPlan } from './plan-x/build-plan.ts'
 
 export { NS }
 
@@ -82,13 +82,7 @@ export function apply(ctx: Context): void {
   // Plan-X UI is independent of the account capability. Commands and session
   // scopes carry the toggle and Build action; the right Sidebar adds document
   // navigation and the headless auto-open entry.
-  ctx.inject(['remote.commands', 'sessions'], (scope) => {
-    // The client Session service exposes `scope`; the Host `SessionStore`
-    // augmentation shares the `sessions` key in some type environments, so read
-    // the one method this feature needs through a local structural face.
-    const sessions = scope.sessions as unknown as {
-      scope(id: SessionId): { conversation: { send(text: string): Promise<void> } } | undefined
-    }
+  ctx.inject(['remote.commands', 'remote.session'], (scope) => {
     scope.slots.inject('conversation.input.left', () => scope.slots.register({
       name: 'conversation.input.left', id: 'plan-x', order: 20, locale: NS,
       inject: (sessionId: string): PlanXToggleInjected => {
@@ -111,22 +105,16 @@ export function apply(ctx: Context): void {
         inject: (sessionId: string): PlanBuildInjected => {
           const id = sessionId as SessionId
           return {
-            build: async (relativePath) => {
-              const off = await scope.remote.commands.execute(id, '/plan-x off', [])
-              if (!off.ok) return `${off.error.message} (${off.error.code})`
-              if (off.value === undefined) return 'unknown command: /plan-x off'
-              const agent = sessions.scope(id)
-              if (agent === undefined) return 'The session is not active.'
-              try {
-                await agent.conversation.send(
-                  `Build the plan at ${relativePath}. Read the plan document, then implement it end to end. `
-                  + 'Do not ask for approval; carry out the plan.',
-                )
-              } catch (reason) {
-                return reason instanceof Error ? reason.message : String(reason)
-              }
-              return null
-            },
+            build: (relativePath) => buildPlan({
+              executeCommand: (sessionId, command) => scope.remote.commands.execute(sessionId, command, []),
+              sendPrompt: (sessionId, text) => scope.remote.session.prompt({
+                requestId: crypto.randomUUID() as SessionRequestId,
+                sessionId,
+                mode: 'queue',
+                content: [{ type: 'text', text }],
+                clientTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+              }),
+            }, id, relativePath),
           }
         },
       }, PlanBuildButton))
