@@ -1,0 +1,31 @@
+{
+  "name": "@escyezi/dsh-enhance-source",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local DeepSeek Harness source reference for Creator mode.",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "~3.18.5"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5"
+  },
+  "files": [
+    "lib/**",
+    "locale/*.json",
+    "icon.svg"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Source Reference",
+    "description": "Inject a local DeepSeek Harness source path into Creator mode and switch the checkout to the latest source or the installed runtime version."
+  }
+}

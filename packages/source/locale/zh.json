@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "源码参考",
+    "description": "把本地 DeepSeek Harness 源码路径注入创造模式提示词，并可更新到最新或本机运行时版本。"
+  }
+}

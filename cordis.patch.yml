@@ -12,3 +12,7 @@
         balanceRefreshMs: 60000
     - id: escyezi/dsh-enhance-plan-x
       name: "@escyezi/dsh-enhance-plan-x"
+    - id: escyezi/dsh-enhance-source
+      name: "@escyezi/dsh-enhance-source"
+      config:
+        sourcePath: ""

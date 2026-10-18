@@ -14,7 +14,7 @@ PLUGIN="$(cd "$(dirname "$0")" && pwd)"
 REPO="${DSH_REPO:?dsh-enhance: set DSH_REPO to a DSH source checkout}"
 REPO="$(cd "$REPO" && pwd)"
 VERSION="${DSH_CLIENT_VERSION:-0.2.1-rc.2}"
-PACKAGES="packages/balance packages/plan-x"
+PACKAGES="packages/balance packages/plan-x packages/source"
 SCAFFOLDS=""
 
 if [ ! -f "$REPO/packages/client/tsdown.client.ts" ]; then

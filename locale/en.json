@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "DSH Enhance",
-    "description": "Enhancements for the DSH desktop app: the sidebar account balance, plus Plan-X, a planning mode that keeps plans as Markdown documents and starts implementation from the document."
+    "description": "Enhancements for the DSH desktop app: the sidebar account balance, Plan-X planning mode, and a local DeepSeek Harness source reference for Creator mode."
   }
 }
