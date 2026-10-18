@@ -2,13 +2,13 @@
 # its own Host and browser half, so the Plugins page gives each one a switch.
 #
 # A profile's own cordis.patch.yml is applied after every bundle layer, so a
-# deployment overrides a row by id without touching this file. The balance row
-# keeps the original `dsh-enhance` id, so existing `balanceRefreshMs` overrides
-# continue to address it.
+# deployment overrides a row by id without touching this file. Row ids carry the
+# `escyezi/` namespace so they cannot collide with another plugin's rows. Both
+# rows were formerly bare `dsh-enhance` / `dsh-enhance-plan-x` ids.
 - insert:
-    - id: dsh-enhance
+    - id: escyezi/dsh-enhance-balance
       name: "@escyezi/dsh-enhance-balance"
       config:
         balanceRefreshMs: 60000
-    - id: dsh-enhance-plan-x
+    - id: escyezi/dsh-enhance-plan-x
       name: "@escyezi/dsh-enhance-plan-x"

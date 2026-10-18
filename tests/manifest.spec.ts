@@ -63,12 +63,13 @@ describe('bundle display resources', () => {
   it('inserts one switchable row per feature package', () => {
     const patch = readText('cordis.patch.yml')
     expect(patch.match(/^    - id:/gmu)).toHaveLength(2)
-    expect(patch).toContain('id: dsh-enhance')
+    expect(patch).toContain('id: escyezi/dsh-enhance-balance')
     expect(patch).toContain('name: "@escyezi/dsh-enhance-balance"')
     expect(patch).toContain('balanceRefreshMs: 60000')
-    expect(patch).toContain('id: dsh-enhance-plan-x')
+    expect(patch).toContain('id: escyezi/dsh-enhance-plan-x')
     expect(patch).toContain('name: "@escyezi/dsh-enhance-plan-x"')
-    const planXBlock = patch.slice(patch.indexOf('id: dsh-enhance-plan-x'))
+    expect(patch).not.toMatch(/^    - id: dsh-/gmu)
+    const planXBlock = patch.slice(patch.indexOf('id: escyezi/dsh-enhance-plan-x'))
     expect(planXBlock).not.toContain('config:')
   })
 

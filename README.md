@@ -15,11 +15,13 @@ DSH 桌面版插件：侧边栏余额卡片 + Plan-X 计划模式。两个功能
 
 | 行 id | 功能包 | 功能 | 配置 |
 |---|---|---|---|
-| `dsh-enhance` | `@escyezi/dsh-enhance-balance` | 侧边栏余额 | `balanceRefreshMs` |
-| `dsh-enhance-plan-x` | `@escyezi/dsh-enhance-plan-x` | Plan-X 计划模式 | 无 |
+| `escyezi/dsh-enhance-balance` | `@escyezi/dsh-enhance-balance` | 侧边栏余额 | `balanceRefreshMs` |
+| `escyezi/dsh-enhance-plan-x` | `@escyezi/dsh-enhance-plan-x` | Plan-X 计划模式 | 无 |
+
+行 id 是 profile 里的 Loader 条目键，不是包名；包名始终带 `@`。`escyezi/` 前缀只用于避免和其他插件的行 id 冲突。
 
 - 关掉某一行，该功能的 Host 注册和浏览器 UI 一起卸载，另一行继续运行。
-- 余额行沿用原来的 `dsh-enhance` id，已有的 `balanceRefreshMs` 覆盖不需要改。
+- 余额行原来的 id 是 `dsh-enhance`，旧的 profile 覆盖需要改成新 id。
 - 两个功能包是根 bundle 的 workspace 依赖，不会单独出现在「已安装」列表里。
 
 ## 余额卡片
@@ -62,7 +64,7 @@ Plan-X 是自带 plan 模式的替代交互：计划是一组普通 Markdown 文
 | bundle 包 | `@escyezi/dsh-enhance` |
 | 余额包 | `@escyezi/dsh-enhance-balance` |
 | Plan-X 包 | `@escyezi/dsh-enhance-plan-x` |
-| bundle 行 id | `dsh-enhance`（余额）、`dsh-enhance-plan-x`（Plan-X） |
+| bundle 行 id | `escyezi/dsh-enhance-balance`（余额）、`escyezi/dsh-enhance-plan-x`（Plan-X） |
 | 显示名 | 卡片 `DSH增强` / `DSH Enhance`；行 `余额` / `Balance`、`Plan-X 计划模式` / `Plan-X` |
 | Host 全局变量 | `__DSH_ENHANCE_BALANCE__` |
 | 客户端 locale 命名空间 | `escyezi.enhance.balance` / `escyezi.enhance.planX` |
@@ -138,12 +140,14 @@ DSH_CLIENT_VERSION=0.2.2 pnpm build
 - 在 profile 的 `cordis.patch.yml` 里按行 id 覆盖（profile patch 永远在 bundle 之后应用）：
 
 ```yaml
-- id: dsh-enhance
+- id: escyezi/dsh-enhance-balance
   config:
     balanceRefreshMs: 0            # 0 = 关闭后台定时刷新，只保留点击刷新
 ```
 
-`dsh-enhance` 现在只代表余额行；Plan-X 行没有配置。想临时关掉某个功能，直接在插件页切对应行的开关即可，不需要改配置。
+`escyezi/dsh-enhance-balance` 现在只代表余额行；Plan-X 行没有配置。想临时关掉某个功能，直接在插件页切对应行的开关即可，不需要改配置。
+
+从旧版升级时，profile patch 里原来的 `- id: dsh-enhance` 覆盖不会再匹配新行；把它改成 `- id: escyezi/dsh-enhance-balance`，否则旧条目会被忽略并在启动时产生一条 not found warning。
 
 profile 的 `cordis.patch.yml` 默认位于 `~/.dsh/profiles/<profile>/cordis.patch.yml`。
 
@@ -166,5 +170,5 @@ Plan-X 的目录和后缀目前是固定约定（`.dsh/plans/*.plan.md`），没
 - Plan-X 与自带 plan 互斥；两者都开启时以自带 plan 的策略为准，建议先用 `/plan-x on` 或开关切到 Plan-X。
 - 如果未安装右侧文档预览（sidebar document preview），计划仍会写入，但没有自动打开和 Build 按钮。
 - 本仓库把 `.dsh/plans/` 加入 `.gitignore`，避免把本机的 Plan-X 计划文档当作插件源码提交；其他工作区是否提交计划由各自仓库决定。
-- 两个功能行可以独立开关；旧的 profile 行级 `- id: dsh-enhance` 覆盖现在只作用于余额，不再影响 Plan-X。整个插件仍由卡片右上角的总开关控制。
+- 两个功能行可以独立开关；profile 行级覆盖使用 `escyezi/dsh-enhance-balance`，旧的 `- id: dsh-enhance` 不再匹配。整个插件仍由卡片右上角的总开关控制。
 - 如果当前会话没有提供 `ask_user_question` 工具，Plan-X 策略要求模型在回复正文里直接提出同样的澄清问题，而不是猜测。
